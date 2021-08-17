@@ -57,3 +57,53 @@ function removeFinalizados() {
 
 const buttonRemoveFinalizado = document.getElementById('remover-finalizados');
 buttonRemoveFinalizado.addEventListener('click', removeFinalizados);
+
+function saveList() {
+  const tarefa = 'tarefa';
+  const tarefaCompleted = 'tarefa completed';
+  const tarefaSelected = 'tarefa selected';
+  for (let index = 0; index < list.children.length; index += 1) {
+    if (list.children[index].classList.contains('completed')) {
+      localStorage.setItem(tarefaCompleted + index, list.children[index].innerText);
+    } else if (list.children[index].classList.contains('selected')) {
+      localStorage.setItem(tarefaSelected + index, list.children[index].innerText);
+    } else {
+      localStorage.setItem(tarefa + index, list.children[index].innerText);
+    }
+  }
+}
+
+const buttonSaveList = document.getElementById('salvar-tarefas');
+buttonSaveList.addEventListener('click', saveList);
+
+function addTarefaSalva(storage, storage1, storage2) {
+  const item = document.createElement('li');
+  if (storage) {
+    item.innerText = storage;
+    item.className = 'itemList';
+    list.appendChild(item);
+  } if (storage1) {
+    item.innerText = storage1;
+    item.className = 'itemList';
+    item.classList.add('completed');
+    list.appendChild(item);
+
+  } if (storage2) {
+    item.innerText = storage2;
+    item.className = 'itemList';
+    item.classList.add('selected');
+    list.appendChild(item);
+  }
+}
+
+window.onload = function () {
+  for (let index = 0; index < localStorage.length; index += 1) {
+    const tarefa = 'tarefa';
+    const tarefaCompleted = 'tarefa completed';
+    const tarefaSelected = 'tarefa selected';
+    const storage = localStorage.getItem(tarefa + index);
+    const storage1 = localStorage.getItem(tarefaCompleted + index);
+    const storage2 = localStorage.getItem(tarefaSelected + index);
+    addTarefaSalva(storage, storage1, storage2);
+  }
+}
