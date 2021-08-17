@@ -87,7 +87,6 @@ function addTarefaSalva(storage, storage1, storage2) {
     item.className = 'itemList';
     item.classList.add('completed');
     list.appendChild(item);
-
   } if (storage2) {
     item.innerText = storage2;
     item.className = 'itemList';
@@ -96,7 +95,7 @@ function addTarefaSalva(storage, storage1, storage2) {
   }
 }
 
-window.onload = function () {
+function loadTarefaSalva() {
   for (let index = 0; index < localStorage.length; index += 1) {
     const tarefa = 'tarefa';
     const tarefaCompleted = 'tarefa completed';
@@ -107,3 +106,57 @@ window.onload = function () {
     addTarefaSalva(storage, storage1, storage2);
   }
 }
+
+loadTarefaSalva();
+
+function checkMove(firstItem, secondItem) {
+  const firstCompleted = firstItem.classList.contains('completed');
+  const secondCompleted = secondItem.classList.contains('completed');
+
+  if (!secondCompleted && firstCompleted) {
+    firstItem.classList.remove('completed');
+    secondItem.classList.add('completed');
+  } else if (secondCompleted && !firstCompleted) {
+    firstItem.classList.add('completed');
+    secondItem.classList.remove('completed');
+  }
+}
+function taskMoveUp() {
+  const selected = document.querySelector('.selected');
+
+  for (let index = 1; index < list.children.length; index += 1) {
+    const firstItem = list.children[index];
+    const secondItem = list.children[index - 1];
+    if (firstItem === selected) {
+      const position = firstItem.innerText;
+      firstItem.innerText = secondItem.innerText;
+      secondItem.innerText = position;
+      firstItem.classList.remove('selected');
+      secondItem.classList.add('selected');
+      checkMove(firstItem, secondItem);
+    }
+  }
+}
+
+const buttonMoveUp = document.getElementById('mover-cima');
+buttonMoveUp.addEventListener('click', taskMoveUp);
+
+function taskMoveDown() {
+  const selected = document.querySelector('.selected');
+
+  for (let index = 0; index < list.children.length - 1; index += 1) {
+    const firstItem = list.children[index];
+    const secondItem = list.children[index + 1];
+    if (firstItem === selected) {
+      const position = firstItem.innerText;
+      firstItem.innerText = secondItem.innerText;
+      secondItem.innerText = position;
+      firstItem.classList.remove('selected');
+      secondItem.classList.add('selected');
+      checkMove(firstItem, secondItem);
+    }
+  }
+}
+
+const buttonMoveDown = document.getElementById('mover-baixo');
+buttonMoveDown.addEventListener('click', taskMoveDown);
