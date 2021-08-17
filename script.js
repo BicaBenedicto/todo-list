@@ -160,3 +160,14 @@ function taskMoveDown() {
 
 const buttonMoveDown = document.getElementById('mover-baixo');
 buttonMoveDown.addEventListener('click', taskMoveDown);
+
+function removeSelected() {
+  for (let index = 0; index < list.children.length; index += 1) {
+    if (list.children[index].classList.contains('selected')) {
+      list.children[index].remove();
+    }
+  }
+}
+
+const buttonRemoveSelected = document.getElementById('remover-selecionado');
+buttonRemoveSelected.addEventListener('click', removeSelected);
