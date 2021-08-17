@@ -37,3 +37,23 @@ function changeForCompleted(evento) {
 }
 
 list.addEventListener('dblclick', changeForCompleted);
+
+function removeList() {
+  const itemList = document.querySelectorAll('.itemList');
+  for (let index = 0; index < itemList.length; index += 1) {
+    itemList[index].remove();
+  }
+}
+
+const buttonRemoveList = document.getElementById('apaga-tudo');
+buttonRemoveList.addEventListener('click', removeList);
+
+function removeFinalizados() {
+  const itemListFinalizado = document.querySelectorAll('.completed');
+  for (let index = 0; index < itemListFinalizado.length; index += 1) {
+    itemListFinalizado[index].remove();
+  }
+}
+
+const buttonRemoveFinalizado = document.getElementById('remover-finalizados');
+buttonRemoveFinalizado.addEventListener('click', removeFinalizados);
