@@ -19,7 +19,9 @@ function changeBackgroundItem(evento) {
     for (let index = 0; index < itemList.length; index += 1) {
       itemList[index].classList.remove('selected');
     }
-    evento.target.classList.add('selected');
+    if (evento.target.classList.contains('itemList')) {
+      evento.target.classList.add('selected');
+    }
   }
 }
 
@@ -30,7 +32,7 @@ function changeForCompleted(evento) {
   if (itemList) {
     if (evento.target.classList.contains('completed')) {
       evento.target.classList.remove('completed');
-    } else {
+    } else if (evento.target.classList.contains('itemList')) {
       evento.target.classList.add('completed');
     }
   }
@@ -171,3 +173,10 @@ function removeSelected() {
 
 const buttonRemoveSelected = document.getElementById('remover-selecionado');
 buttonRemoveSelected.addEventListener('click', removeSelected);
+
+function removeSaveList() {
+  localStorage.clear();
+}
+
+const buttonApagarListaSalva = document.getElementById('apagar-lista-salva');
+buttonApagarListaSalva.addEventListener('click', removeSaveList);
